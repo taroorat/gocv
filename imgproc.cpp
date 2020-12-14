@@ -268,6 +268,17 @@ void MinEnclosingCircle(Points points, Point2f* center, float* radius){
     center->y = center2f.y;
 }
 
+//chenrq 
+double PointPolygonTest(Contour con, Point2f point, bool measureDist){
+    cv::Point2f pt1(point.x, point.y);
+    std::vector<cv::Point> pts;
+    for (size_t i = 0; i < con.length; i++) {
+        pts.push_back(cv::Point(con.points[i].x, con.points[i].y));
+    }
+    return cv::pointPolygonTest(pts, pt1, measureDist);
+}
+
+
 struct Contours FindContours(Mat src, int mode, int method) {
     std::vector<std::vector<cv::Point> > contours;
     cv::findContours(*src, contours, mode, method);

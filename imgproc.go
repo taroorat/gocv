@@ -412,6 +412,20 @@ func BoundingRect(contour []image.Point) image.Rectangle {
 	return rect
 }
 
+// PointPolygonTest judge point at polygon
+// added by chenrq
+//
+func PointPolygonTest(contour []image.Point, point image.Point, measure bool) float64 {
+	cContour := toCPoints(contour)
+	sp1 := C.struct_Point2f{
+		x: C.float(point.X),
+		y: C.float(point.Y),
+	}
+	measureDist := C.bool(measure)
+	result := C.PointPolygonTest(cContour, sp1, measureDist)
+	return float64(result)
+}
+
 // BoxPoints finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
 //
 // For further Details, please see:
